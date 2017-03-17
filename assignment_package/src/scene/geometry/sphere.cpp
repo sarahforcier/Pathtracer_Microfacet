@@ -96,6 +96,7 @@ Intersection Sphere::Sample(const Intersection &ref, const Point2f &xi, float *p
     isect.point = Point3f(transform.T() * glm::vec4(pObj.x, pObj.y, pObj.z, 1.0f));
     isect.normalGeometric = transform.invTransT() * Normal3f(nObj);
 
+    Vector3f wi;
     *pdf = 1.0f / (2.0f * Pi * (1 - cosThetaMax));
 
     return isect;

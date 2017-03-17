@@ -8,6 +8,8 @@ public:
         : Integrator(bounds, s, sampler, recursionLimit)
     {}
 
+    virtual ~FullLightingIntegrator() {}
+
     // Evaluate the energy transmitted along the ray back to
     // its origin using multiple importance sampling
     virtual Color3f Li(const Ray &ray, const Scene &scene, std::shared_ptr<Sampler> sampler, int depth) const;

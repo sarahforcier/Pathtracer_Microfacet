@@ -1,6 +1,6 @@
 #include "naiveintegrator.h"
 
-Color3f NaiveIntegrator::Li(const Ray &ray, const Scene &scene, std::shared_ptr<Sampler> sampler, int depth) const
+Color3f NaiveIntegrator::Li(const Ray &ray, const Scene &scene, std::shared_ptr<Sampler> sampler, int depth, Color3f energy) const
 {
     //TODO
     Intersection isect;
@@ -18,7 +18,7 @@ Color3f NaiveIntegrator::Li(const Ray &ray, const Scene &scene, std::shared_ptr<
             float pdf;
 
             Color3f c = isect.bsdf->Sample_f(woW, &wiW, xi, &pdf);
-            Color3f li = Li(isect.SpawnRay(glm::normalize(wiW)), scene, sampler, depth -1);
+            Color3f li = Li(isect.SpawnRay(glm::normalize(wiW)), scene, sampler, depth -1, energy);
             if (pdf < 0.0000001) {
                 color = Le;
             }

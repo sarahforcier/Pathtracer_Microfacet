@@ -60,3 +60,37 @@ Vector3f TrowbridgeReitzDistribution::Sample_wh(const Vector3f &wo, const Point2
 
     return wh;
 }
+
+float BeckmannDistribution::D(const Vector3f &wh) const
+{
+    float tan2 = Tan2Theta(wh);
+    // handle grazing angles (tan2 = inf)
+    if (glm::isinf(tan2)) return 0.f;
+    float cos4 = Cos2Theta(wh) * Cos2Theta(wh);
+    float x2 = alphax * alphax;
+    float y2 = alphay * alphay;
+    return glm::exp(-tan2 * (Cos2Phi(wh)/x2 + Sin2Phi(wh)/y2))/
+            (Pi * alphax * alphay * cos4);
+}
+
+float BeckmannDistribution::Lambda(const Vector3f &w) const
+{
+    float absTan = glm::abs(TanTheta(w));
+    // handle grazing angles
+    if (glm::isinf(absTan)) return 0.f;
+    // interpolated alpha in direction w
+    float alpha = glm::sqrt(Cos2Phi(w) * alphax * alphax +
+                            Sin2Phi(w) * alphay * alphay);
+    float a = 1 / (alpha * absTan);
+    if (a >= 1.6f) return 0.f;
+    return (1.f - 1.259f * a + 0.396f* a * a) /
+            (3.535f * a + 2.181f * a * a);
+}
+
+Vector3f BeckmannDistribution::Sample_wh(const Vector3f &wo, const Point2f &xi) const
+{
+    Vector3f wh;
+
+
+    return wh;
+}

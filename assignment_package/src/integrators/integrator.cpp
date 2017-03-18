@@ -28,7 +28,7 @@ void Integrator::Render()
             Ray ray = camera->Raycast(sample);
             // Get the L (energy) for the ray by calling Li(ray, scene, tileSampler, arena)
             // Li is implemented by Integrator subclasses, like DirectLightingIntegrator
-            Color3f L = Li(ray, *scene, sampler, recursionLimit);
+            Color3f L = Li(ray, *scene, sampler, recursionLimit, Color3f(0.f));
             // Accumulate color in the pixel
             pixelColor += L;
         }

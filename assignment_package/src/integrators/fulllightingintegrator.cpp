@@ -1,6 +1,6 @@
 #include "fulllightingintegrator.h"
 
-Color3f FullLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::shared_ptr<Sampler> sampler, int depth) const
+Color3f FullLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::shared_ptr<Sampler> sampler, int depth, Color3f energy) const
 {
     //TODO
     Intersection isect;
@@ -8,6 +8,7 @@ Color3f FullLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::shar
     Color3f fColor;
     Color3f gColor;
     Color3f color;
+    //float q = 0.f;
     if (scene.Intersect(ray, &isect)) {
         Vector3f woW = - ray.direction;
         Le = isect.Le(woW);
@@ -15,6 +16,13 @@ Color3f FullLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::shar
             color = Le;
         } else {
             isect.ProduceBSDF();
+
+            // russian roulette
+//            if (depth < 3) q = sampler->Get1D();
+//            float E = glm::max(energy.x, glm::max(energy.y, energy.z));
+//            if (E < q) {
+//                return color;
+//            }
 
             // g (lighting importance sampling)
             int num= scene.lights.length();
@@ -40,7 +48,7 @@ Color3f FullLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::shar
             Vector3f wiWf; float fPdf;
             Point2f xi = sampler->Get2D();
             Color3f f1 = isect.bsdf->Sample_f(woW, &wiWf, xi, &fPdf);
-            Color3f li1 = Li(isect.SpawnRay(glm::normalize(wiWf)), scene, sampler, depth -1);
+            Color3f li1 = Li(isect.SpawnRay(glm::normalize(wiWf)), scene, sampler, depth -1, energy);
             if (fPdf > 0.0000001) fColor = f1 * li1 * AbsDot(wiWf, isect.normalGeometric)/fPdf;
             float wf = PowerHeuristic(1, fPdf, 1, light->Pdf_Li(isect, wiWf));
 

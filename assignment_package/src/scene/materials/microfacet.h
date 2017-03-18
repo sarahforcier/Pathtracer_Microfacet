@@ -11,7 +11,8 @@ public:
     // reflection wi)
     virtual float D(const Vector3f &wh) const = 0;
 
-    //
+    // measures invisible masked microfacet area per visible microfacet
+    // area
     virtual float Lambda(const Vector3f &w) const = 0;
 
     // Computes the geometric self-shadowing and interreflection term
@@ -31,6 +32,20 @@ public:
 class TrowbridgeReitzDistribution : public MicrofacetDistribution {
 public:
     TrowbridgeReitzDistribution(float alphax, float alphay)
+        : alphax(alphax), alphay(alphay) {}
+
+    float D(const Vector3f &wh) const;
+    Vector3f Sample_wh(const Vector3f &wo, const Point2f &xi) const;
+
+private:
+    float Lambda(const Vector3f &w) const;
+
+    const float alphax, alphay;
+};
+
+class BeckmannDistribution : public MicrofacetDistribution {
+public:
+    BeckmannDistribution(float alphax, float alphay)
         : alphax(alphax), alphay(alphay) {}
 
     float D(const Vector3f &wh) const;

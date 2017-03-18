@@ -45,7 +45,9 @@ SOURCES += \
     $$PWD/scene/materials/transmissivematerial.cpp \
     $$PWD/scene/materials/specularbtdf.cpp \
     $$PWD/scene/materials/microfacet.cpp \
-    $$PWD/scene/materials/microfacetbrdf.cpp
+    $$PWD/scene/materials/microfacetbrdf.cpp \
+    $$PWD/scene/materials/microfacetbtdf.cpp \
+    $$PWD/scene/materials/frostedmaterial.cpp
 
 HEADERS += \
     $$PWD/mainwindow.h \
@@ -92,4 +94,6 @@ HEADERS += \
     $$PWD/scene/materials/transmissivematerial.h \
     $$PWD/scene/materials/specularbtdf.h \
     $$PWD/scene/materials/microfacet.h \
-    $$PWD/scene/materials/microfacetbrdf.h
+    $$PWD/scene/materials/microfacetbrdf.h \
+    $$PWD/scene/materials/microfacetbtdf.h \
+    $$PWD/scene/materials/frostedmaterial.h

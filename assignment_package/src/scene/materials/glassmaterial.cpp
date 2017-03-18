@@ -28,6 +28,5 @@ void GlassMaterial::ProduceBSDF(Intersection *isect) const
 
     // Add SpecularBTDF and SpecularBRDF each with FresnelDielectric
     isect->bsdf->Add(new SpecularBRDF(reflectColor, new FresnelDielectric(1.f, indexOfRefraction)));
-    isect->bsdf->Add(new SpecularBTDF(transmitColor, 1.f, indexOfRefraction, new FresnelDielectric(1.f, indexOfRefraction)));
-    
+    isect->bsdf->Add(new SpecularBTDF(transmitColor, 1.f, indexOfRefraction, new FresnelDielectric(1.f, indexOfRefraction)));  
 }

@@ -42,6 +42,8 @@ INPUT(
 ./debug\specularbtdf.o
 ./debug\microfacet.o
 ./debug\microfacetbrdf.o
+./debug\microfacetbtdf.o
+./debug\frostedmaterial.o
 ./debug\qrc_glsl.o
 ./debug\qrc_sfx.o
 ./debug\moc_mainwindow.o

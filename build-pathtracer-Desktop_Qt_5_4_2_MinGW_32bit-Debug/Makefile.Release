@@ -4248,6 +4248,7 @@ release/jsonreader.o: ../assignment_package/src/scene/jsonreader.cpp ../assignme
 		../assignment_package/src/scene/geometry/squareplane.h \
 		../assignment_package/src/scene/materials/mattematerial.h \
 		../assignment_package/src/scene/materials/mirrormaterial.h \
+		../assignment_package/src/scene/materials/frostedmaterial.h \
 		../assignment_package/src/scene/materials/transmissivematerial.h \
 		../assignment_package/src/scene/materials/glassmaterial.h \
 		../assignment_package/src/scene/materials/plasticmaterial.h \
@@ -11248,8 +11249,10 @@ release/frostedmaterial.o: ../assignment_package/src/scene/materials/frostedmate
 		../assignment_package/include/pcg32.h \
 		../assignment_package/src/scene/materials/specularbrdf.h \
 		../assignment_package/src/scene/materials/fresnel.h \
+		../assignment_package/src/scene/materials/specularbtdf.h \
 		../assignment_package/src/scene/materials/microfacet.h \
-		../assignment_package/src/scene/materials/microfacetbrdf.h
+		../assignment_package/src/scene/materials/microfacetbrdf.h \
+		../assignment_package/src/scene/materials/microfacetbtdf.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\frostedmaterial.o ..\assignment_package\src\scene\materials\frostedmaterial.cpp
 
 release/qrc_glsl.o: release/qrc_glsl.cpp 

@@ -90,7 +90,24 @@ float BeckmannDistribution::Lambda(const Vector3f &w) const
 Vector3f BeckmannDistribution::Sample_wh(const Vector3f &wo, const Point2f &xi) const
 {
     Vector3f wh;
-
+    float tanTheta2, phi;
+    float logXi = glm::log(xi[0]);
+    if (glm::isinf(logXi)) logXi = 0.f;
+    if (alphax == alphay) {
+        tanTheta2 = -alphax * alphax * logXi;
+        phi = 2.f * Pi * xi[1];
+    } else {
+        phi = glm::atan(alphay / alphax * glm::tan(2.f * Pi * xi[1] + .5f * Pi));
+        if (xi[1] > .5f) phi += Pi;
+        float sinPhi = std::sin(phi), cosPhi = std::cos(phi);
+        const float alphax2 = alphax * alphax, alphay2 = alphay * alphay;
+        float tanTheta2 = -logXi / (cosPhi * cosPhi / alphax2 + sinPhi * sinPhi / alphay2);
+    }
+    float cosTheta = 1 / glm::sqrt(1.f + tanTheta2);
+    float sinTheta = glm::sqrt(glm::max(0.f, 1.f - cosTheta * cosTheta));
+    wh = Vector3f(sinTheta * std::cos(phi), sinTheta * std::sin(phi),
+                  cosTheta);
+    if (!SameHemisphere(wo, wh)) wh = -wh;
 
     return wh;
 }

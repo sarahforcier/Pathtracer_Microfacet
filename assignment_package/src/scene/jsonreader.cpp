@@ -275,8 +275,8 @@ bool JSONReader::LoadMaterial(QJsonObject &material, const QStringRef &local_pat
         std::shared_ptr<QImage> textureMapTransmit;
         std::shared_ptr<QImage> textureMapRefl;
         std::shared_ptr<QImage> normalMap;
-        Color3f Kr = ToVec3(material["Kr"].toArray());
         Color3f Kt = ToVec3(material["Kt"].toArray());
+        Color3f Kr = ToVec3(material["Kr"].toArray());
         float eta = material["eta"].toDouble();
         float roughness = 0.f;
         if(material.contains(QString("roughness"))) {

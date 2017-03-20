@@ -8,7 +8,6 @@ Color3f FullLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::shar
     Color3f fColor;
     Color3f gColor;
     Color3f color;
-    //float q = 0.f;
     if (scene.Intersect(ray, &isect)) {
         Vector3f woW = - ray.direction;
         Le = isect.Le(woW);
@@ -18,11 +17,11 @@ Color3f FullLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::shar
             isect.ProduceBSDF();
 
             // russian roulette
-//            if (depth < 3) q = sampler->Get1D();
-//            float E = glm::max(energy.x, glm::max(energy.y, energy.z));
-//            if (E < q) {
-//                return color;
-//            }
+            if (depth < 3) {
+                float q = sampler->Get1D();
+                float E = glm::max(energy.x, glm::max(energy.y, energy.z));
+                if (E < q) return color;
+            }
 
             // g (lighting importance sampling)
             int num= scene.lights.length();
@@ -38,7 +37,7 @@ Color3f FullLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::shar
             Intersection shad_Feel;
             wiWg = glm::normalize(wiWg);
             if (scene.Intersect(isect.SpawnRay(wiWg), &shad_Feel)) {
-                if (shad_Feel.objectHit->GetAreaLight() && gPdf > 0.f) {
+                if (shad_Feel.objectHit->areaLight == scene.lights[index] && gPdf > 0.f) {
                     gColor = f2 * li2 * AbsDot(wiWg, isect.normalGeometric)/gPdf;
                 }
             }
@@ -48,7 +47,7 @@ Color3f FullLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::shar
             Vector3f wiWf; float fPdf;
             Point2f xi = sampler->Get2D();
             Color3f f1 = isect.bsdf->Sample_f(woW, &wiWf, xi, &fPdf);
-            Color3f li1 = Li(isect.SpawnRay(glm::normalize(wiWf)), scene, sampler, depth -1, energy);
+            Color3f li1 = Li(isect.SpawnRay(glm::normalize(wiWf)), scene, sampler, depth -1, energy + f1);
             if (fPdf > 0.0000001) fColor = f1 * li1 * AbsDot(wiWf, isect.normalGeometric)/fPdf;
             float wf = PowerHeuristic(1, fPdf, 1, light->Pdf_Li(isect, wiWf));
 

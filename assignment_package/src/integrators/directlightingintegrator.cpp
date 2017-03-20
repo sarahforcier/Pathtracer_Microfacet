@@ -31,7 +31,7 @@ Color3f DirectLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::sh
             // is Shadowed?
             Intersection shad_Feel;
             if (scene.Intersect(isect.SpawnRay(glm::normalize(wiW)), &shad_Feel)) {
-                if (!shad_Feel.objectHit->GetAreaLight()) {
+                if (shad_Feel.objectHit->areaLight != scene.lights[index]) {
                     return Le;
                 }
             }

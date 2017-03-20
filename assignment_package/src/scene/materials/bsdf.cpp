@@ -60,7 +60,7 @@ Color3f BSDF::Sample_f(const Vector3f &woW, Vector3f *wiW, const Point2f &xi,
     Vector3f wiT;
     *pdf = 0.f;
     Color3f color = selection->Sample_f(woT,&wiT,u,pdf,sampledType);
-    *wiW = tangentToWorld * wiT;
+    *wiW = glm::normalize(tangentToWorld * wiT);
 
     if (selection->type | BSDF_SPECULAR) {
         *pdf /= arr.size();

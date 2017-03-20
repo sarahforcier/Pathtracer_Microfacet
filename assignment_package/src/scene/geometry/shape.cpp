@@ -21,6 +21,6 @@ Intersection Shape::Sample(const Intersection &ref, const Point2f &xi, float *pd
     // generate wi from resulting intersection
     Vector3f wi = glm::normalize(isect.point - ref.point);
     // convert to pdf with respect to solid angle
-    *pdf = p * glm::distance2(ref.point, isect.point) / AbsDot(isect.normalGeometric, -wi);
+    *pdf = p * glm::distance2(ref.point, isect.point) / AbsDot(isect.normalGeometric, wi);
     return isect;
 }

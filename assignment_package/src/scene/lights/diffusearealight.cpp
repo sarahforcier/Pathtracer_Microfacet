@@ -14,10 +14,10 @@ Color3f DiffuseAreaLight::Sample_Li(const Intersection &ref, const Point2f &xi,
     //Set ωi to the vector from the reference Intersection's point
     //to the Shape's intersection point.
     // NOT normalized
-    *wi = inter.point - ref.point;
+    *wi = glm::normalize(inter.point - ref.point);
 
     //Return the light emitted along ωi from our intersection point
-    return L(ref, -glm::normalize(*wi));
+    return L(inter, -*wi);
 }
 
 Color3f DiffuseAreaLight::L(const Intersection &isect, const Vector3f &w) const
@@ -30,6 +30,6 @@ float DiffuseAreaLight::Pdf_Li(const Intersection &ref, const Vector3f &wi) cons
     Ray ray = ref.SpawnRay(wi);
     Intersection inter;
     if (!shape->Intersect(ray, &inter)) return 0.f;
-    return area * glm::distance2(ref.point, inter.point) / AbsDot(inter.normalGeometric, -wi);
+    return glm::distance2(ref.point, inter.point) / AbsDot(inter.normalGeometric, -wi) / area;
 }
 

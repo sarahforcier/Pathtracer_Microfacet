@@ -8,6 +8,7 @@ Color3f FullLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::shar
     Color3f fColor;
     Color3f gColor;
     Color3f color;
+    float q = 0.f;
     if (scene.Intersect(ray, &isect)) {
         Vector3f woW = - ray.direction;
         Le = isect.Le(woW);
@@ -17,10 +18,11 @@ Color3f FullLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::shar
             isect.ProduceBSDF();
 
             // russian roulette
+            bool term = false;
             if (depth < 3) {
-                float q = sampler->Get1D();
+                q = sampler->Get1D();
                 float E = glm::max(energy.x, glm::max(energy.y, energy.z));
-                if (E < q) return color;
+                if (E < q) term = true;
             }
 
             // g (lighting importance sampling)
@@ -31,8 +33,9 @@ Color3f FullLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::shar
             float gPdf; Vector3f wiWg;
             const std::shared_ptr<Light> &light = scene.lights[index];
             Color3f li2 = light->Sample_Li(isect, sampler->Get2D(), &wiWg, &gPdf);
-            gPdf /= num;
             Color3f f2 = isect.bsdf->f(woW, wiWg);
+            float wg = PowerHeuristic(1, gPdf, 1, isect.bsdf->Pdf(woW, wiWg));
+            gPdf /= num;
 
             Intersection shad_Feel;
             wiWg = glm::normalize(wiWg);
@@ -41,14 +44,15 @@ Color3f FullLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::shar
                     gColor = f2 * li2 * AbsDot(wiWg, isect.normalGeometric)/gPdf;
                 }
             }
-            float wg = PowerHeuristic(1, gPdf, 1, isect.bsdf->Pdf(woW, wiWg));
 
             // f (bsdf importance sampling)
             Vector3f wiWf; float fPdf;
             Point2f xi = sampler->Get2D();
             Color3f f1 = isect.bsdf->Sample_f(woW, &wiWf, xi, &fPdf);
-            Color3f li1 = Li(isect.SpawnRay(glm::normalize(wiWf)), scene, sampler, depth -1, energy + f1);
-            if (fPdf > 0.0000001) fColor = f1 * li1 * AbsDot(wiWf, isect.normalGeometric)/fPdf;
+            if (!term) {
+                Color3f li1 = Li(isect.SpawnRay(glm::normalize(wiWf)), scene, sampler, depth -1, (energy + f1)/(1-q));
+                if (fPdf > 0.f) fColor = f1 * li1 * AbsDot(wiWf, isect.normalGeometric)/fPdf;
+            }
             float wf = PowerHeuristic(1, fPdf, 1, light->Pdf_Li(isect, wiWf));
 
             color = Le + wf * fColor + wg * gColor;

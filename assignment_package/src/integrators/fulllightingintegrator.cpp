@@ -25,7 +25,7 @@ Color3f FullLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::shar
             const std::shared_ptr<Light> &light = scene.lights[index];
             Color3f li2 = light->Sample_Li(isect, sampler->Get2D(), &wiWg, &gPdf);
             Color3f f2 = isect.bsdf->f(woW, wiWg);
-            float wg = PowerHeuristic(1, gPdf, 1, isect.bsdf->Pdf(woW, wiWg));
+            float wg = BalanceHeuristic(1, gPdf, 1, isect.bsdf->Pdf(woW, wiWg));
             gPdf /= num;
 
             Intersection shad_Feel;
@@ -53,7 +53,7 @@ Color3f FullLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::shar
                 Color3f li1 = Li(isect.SpawnRay(glm::normalize(wiWf)), scene, sampler, depth -1, (energy * f)/(1.f - q + RayEpsilon));
                 fColor = f * li1;
             }
-            float wf = PowerHeuristic(1, fPdf, 1, light->Pdf_Li(isect, wiWf));
+            float wf = BalanceHeuristic(1, fPdf, 1, light->Pdf_Li(isect, wiWf));
 
             color = Le + wf * fColor + wg * gColor;
         }

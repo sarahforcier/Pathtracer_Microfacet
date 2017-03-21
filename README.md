@@ -16,6 +16,8 @@ Rough Mirror
 ![](./roughmirror900SamplesDirect_m.png)
 #### MIS, 100 Samples, 5 recursion
 ![](./roughmirror100SamplesMIS_m.png)
+#### MIS Balance Heuristic, 100 Samples, 5 recursion
+![](./roughmirror900SamplesMIS_mbalance.png)
 #### Naive, 100 Samples, 5 recursion
 ![](./roughmirror100SamplesNaive_m.png)
 #### Direct, 100 Samples, 5 recursion
@@ -25,6 +27,10 @@ Veach
 ---------
 #### MIS, 900 Samples, 5 recursion
 ![](./Veach900MIS_m.png)
+#### MIS, 100 Samples, 5 recursion
+![](./Veach100MIS_m.png)
+#### MIS Balance Heuristic, 100 Samples, 5 recursion
+![](./Veach900MIS_mbalance.png)
 #### Naive, 900 Samples, 5 recursion
 ![](./Veach900Naive_m.png)
 #### Direct, 900 Samples, 5 recursion
@@ -44,7 +50,7 @@ Gradient
 #### MIS, 900 Samples, 5 recursion
 ![](./gradient900MIS.png)
 #### Naive, 900 Samples, 5 recursion
-![](./gradient900Naive.png)
+![](./gradient900naive.png)
 #### Direct, 900 Samples, 5 recursion
 ![](./gradient900Direct.png)
 
@@ -53,7 +59,7 @@ Map
 #### MIS, 100 Samples, 5 recursion
 ![](./map100MIS.png)
 #### Naive, 100 Samples, 5 recursion
-![](./map100naive.png)
+![](./map100Naive.png)
 #### Direct, 100 Samples, 5 recursion
 ![](./map100Direct.png)
 

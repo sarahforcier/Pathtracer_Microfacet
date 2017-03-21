@@ -14,7 +14,7 @@ void Integrator::Render()
     for(Point2i pixel : tilePixels)
     {
         //Uncomment this to debug a particular pixel within this tile
-//        if(pixel.x == 160 && pixel.y == 145)
+//        if(pixel.x == 275 && pixel.y == 204)
 //        {
 //            std::cout << "";
 //        }
@@ -28,7 +28,7 @@ void Integrator::Render()
             Ray ray = camera->Raycast(sample);
             // Get the L (energy) for the ray by calling Li(ray, scene, tileSampler, arena)
             // Li is implemented by Integrator subclasses, like DirectLightingIntegrator
-            Color3f L = Li(ray, *scene, sampler, recursionLimit, Color3f(0.f));
+            Color3f L = Li(ray, *scene, sampler, recursionLimit, Color3f(1.f));
             // Accumulate color in the pixel
             pixelColor += L;
         }

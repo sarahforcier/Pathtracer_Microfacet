@@ -30,12 +30,12 @@ Color3f DirectLightingIntegrator::Li(const Ray &ray, const Scene &scene, std::sh
 
             // is Shadowed?
             Intersection shad_Feel;
-            if (scene.Intersect(isect.SpawnRay(glm::normalize(wiW)), &shad_Feel)) {
+            if (scene.Intersect(isect.SpawnRay(wiW), &shad_Feel)) {
                 if (shad_Feel.objectHit->areaLight != scene.lights[index]) {
                     return Le;
                 }
             }
-            wiW = glm::normalize(wiW);
+
 
             if (pdf == 0.f) color = Le;
             else color =  Le + f * li * AbsDot(wiW, isect.normalGeometric)/pdf;

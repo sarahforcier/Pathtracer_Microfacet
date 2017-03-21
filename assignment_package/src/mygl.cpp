@@ -408,12 +408,12 @@ void MyGL::RenderScene()
             QThreadPool::globalInstance()->start(rt);
 #else
             // Use this commented-out code to only render a tile with your desired pixel
-            //            Point2i debugPixel(200,200);
-            //            if(x0 < debugPixel.x && x1 >= debugPixel.x && y0 < debugPixel.y && y1 >= debugPixel.y)
-            //            {
-            //                rt->Render();
-            //            }
-            rt->Render();
+                        Point2i debugPixel(175,204);
+                        if(x0 < debugPixel.x && x1 >= debugPixel.x && y0 < debugPixel.y && y1 >= debugPixel.y)
+                        {
+                            rt->Render();
+                        }
+            //rt->Render();
             delete rt;
 #endif //MULTITHREAD
         }

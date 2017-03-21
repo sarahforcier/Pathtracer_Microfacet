@@ -65,8 +65,9 @@ Map
 
 Extra credit 
 -----------
-#### Frosted Glass
-![](./frostedGlass.png)
+#### Frosted Glass, 900 Samples, 5 recursion
+Glass with microfacet reflection and transmission based on roughness value
+![](./frosted.png)
 
 #### Beckmann
 ![](./roughmirror100SamplesMIS_mbeckmann.png)

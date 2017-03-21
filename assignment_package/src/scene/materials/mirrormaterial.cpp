@@ -40,8 +40,8 @@ void MirrorMaterial::ProduceBSDF(Intersection *isect) const
         }
         //Convert roughness from 0,1 scale to alpha term in Trowbridge-Reitz distribution
 //        rough = RoughnessToAlpha(rough);
-//        MicrofacetDistribution* distrib = new TrowbridgeReitzDistribution(rough, rough);
-        MicrofacetDistribution* distrib = new BeckmannDistribution(rough, rough);
+        MicrofacetDistribution* distrib = new TrowbridgeReitzDistribution(rough, rough);
+        //MicrofacetDistribution* distrib = new BeckmannDistribution(rough, rough);
         isect->bsdf->Add(new MicrofacetBRDF(color, distrib, new FresnelNoOp()));
     }
 }

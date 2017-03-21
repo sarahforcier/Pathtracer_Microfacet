@@ -9,7 +9,9 @@ public:
     MicrofacetBRDF(const Color3f &R, MicrofacetDistribution* distribution, Fresnel* fresnel)
         : BxDF(BxDFType(BSDF_REFLECTION | BSDF_GLOSSY)), R(R), distribution(distribution), fresnel(fresnel) {}
 
-    virtual ~MicrofacetBRDF(){delete fresnel; delete distribution;}
+    virtual ~MicrofacetBRDF(){
+        delete fresnel; delete distribution;
+    }
 
     Color3f f(const Vector3f &wo, const Vector3f &wi) const;
 

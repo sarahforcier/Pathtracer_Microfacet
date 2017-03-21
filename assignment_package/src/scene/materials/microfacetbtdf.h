@@ -14,7 +14,9 @@ public:
           etaA(etaA),
           etaB(etaB){}
 
-    virtual ~MicrofacetBTDF(){delete fresnel; delete distribution;}
+    virtual ~MicrofacetBTDF(){
+        delete fresnel; delete distribution;
+    }
 
     Color3f f(const Vector3f &wo, const Vector3f &wi) const;
 

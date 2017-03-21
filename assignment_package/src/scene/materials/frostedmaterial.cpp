@@ -50,7 +50,8 @@ void FrostedMaterial::ProduceBSDF(Intersection *isect) const
 //        rough = RoughnessToAlpha(rough);
         MicrofacetDistribution* distrib = new TrowbridgeReitzDistribution(rough, rough);
 //        MicrofacetDistribution* distrib = new BeckmannDistribution(rough, rough);
-        isect->bsdf->Add(new MicrofacetBRDF(reflectColor, distrib, new FresnelDielectric(1.f, indexOfRefraction)));
         isect->bsdf->Add(new MicrofacetBTDF(transmitColor, distrib, new FresnelDielectric(1.f, indexOfRefraction), 1.f, indexOfRefraction));
+        isect->bsdf->Add(new MicrofacetBRDF(reflectColor, distrib, new FresnelDielectric(1.f, indexOfRefraction)));
+//        isect->bsdf->Add(new MicrofacetBTDF(transmitColor, distrib, new FresnelDielectric(1.f, indexOfRefraction), 1.f, indexOfRefraction));
     }
 }

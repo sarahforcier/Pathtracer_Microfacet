@@ -81,16 +81,6 @@
             "rotate" : [0,-17.5,0],
             "scale" : [3, 3, 3]
           }
-        },
-        {
-          "shape" : "Sphere",
-          "name" : "transmissive sphere",
-          "material" : "matteRed",
-          "transform" : {
-            "translate" : [0, 1.25, 0],
-            "rotate" : [0,0,0],
-            "scale" : [1,1,1]
-          }
         }
       ],
       "lights" : [

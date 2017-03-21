@@ -11,7 +11,9 @@
 class Fresnel {
  public:
    // Fresnel Interface
-   virtual ~Fresnel(){}
+   virtual ~Fresnel(){
+
+    }
    virtual Color3f Evaluate(float cosI) const = 0;
 };
 

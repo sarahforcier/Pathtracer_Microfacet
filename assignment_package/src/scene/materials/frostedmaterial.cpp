@@ -48,10 +48,10 @@ void FrostedMaterial::ProduceBSDF(Intersection *isect) const
         }
         //Convert roughness from 0,1 scale to alpha term in Trowbridge-Reitz distribution
 //        rough = RoughnessToAlpha(rough);
-        MicrofacetDistribution* distrib = new TrowbridgeReitzDistribution(rough, rough);
+        MicrofacetDistribution* distrib1 = new TrowbridgeReitzDistribution(rough, rough);
+        MicrofacetDistribution* distrib2 = new TrowbridgeReitzDistribution(rough, rough);
 //        MicrofacetDistribution* distrib = new BeckmannDistribution(rough, rough);
-        isect->bsdf->Add(new MicrofacetBTDF(transmitColor, distrib, new FresnelDielectric(1.f, indexOfRefraction), 1.f, indexOfRefraction));
-        isect->bsdf->Add(new MicrofacetBRDF(reflectColor, distrib, new FresnelDielectric(1.f, indexOfRefraction)));
-//        isect->bsdf->Add(new MicrofacetBTDF(transmitColor, distrib, new FresnelDielectric(1.f, indexOfRefraction), 1.f, indexOfRefraction));
+        isect->bsdf->Add(new MicrofacetBTDF(transmitColor, distrib1, new FresnelDielectric(1.f, indexOfRefraction), 1.f, indexOfRefraction));
+        isect->bsdf->Add(new MicrofacetBRDF(reflectColor, distrib2, new FresnelDielectric(1.f, indexOfRefraction)));
     }
 }

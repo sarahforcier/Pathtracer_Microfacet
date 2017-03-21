@@ -10,7 +10,7 @@ Color3f MicrofacetBTDF::f(const Vector3f &wo, const Vector3f &wi) const
     if (cosO == 0.f || cosI == 0.f) return Color3f(0.f);
 
     // inside or out?
-    float n = CosTheta(wo) > 0.f ? etaA/etaB : etaB/etaA;
+    float n = CosTheta(wo) > 0.f ? etaB/etaA : etaA/etaB;
 
     Vector3f wh = glm::normalize(wo + n * wi);
     if (wh.z < 0.f) wh *= -1.f;
@@ -44,11 +44,11 @@ float MicrofacetBTDF::Pdf(const Vector3f &wo, const Vector3f &wi) const
     if (SameHemisphere(wo, wi)) return 0.f;
 
     // inside or out?
-    float n = CosTheta(wo) > 0.f ? etaA/etaB : etaB/etaA;
+    float n = CosTheta(wo) > 0.f ? etaB/etaA : etaA/etaB;
 
     Vector3f wh = glm::normalize(wo + n * wi);
 
-    if (wh.z < 0.f) wh *= -1.f;
+    if (wh.z < 0.f) wh = -wh;
 
     float d = glm::dot(wo, wh) + n * glm::dot(wi, wh);
     float dwh_dwi = glm::abs(n * n * glm::dot(wi,wh) / (d * d));

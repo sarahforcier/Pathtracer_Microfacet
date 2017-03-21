@@ -45,7 +45,7 @@
         {
           "shape" : "SquarePlane",
           "name" : "Back Wall",
-          "material" : "texturedMaterial",
+          "material" : "chromeMirror",
           "transform" : {
             "translate" : [0,2.5,5],
             "rotate" : [0,180,0],
@@ -64,42 +64,22 @@
         },
         {
           "shape" : "Cube",
-          "name" : "green",
-          "material" : "matteGreen",
-          "transform" : {
-            "translate" : [1, 1, 3],
-            "rotate" : [30, 60, 85],
-            "scale" : [1, 1, 1]
-          }
-        },
-        {
-          "shape" : "Cube",
-          "name" : "red",
-          "material" : "matteRed",
-          "transform" : {
-            "translate" : [-1, 0, 3],
-            "rotate" : [0,27.5,0],
-            "scale" : [1, 1, 1]
-          }
-        },
-        {
-          "shape" : "Cube",
-          "name" : "blue",
-          "material" : "matteBlue",
-          "transform" : {
-            "translate" : [0, 3, 3.5],
-            "rotate" : [-15, 60, 20],
-            "scale" : [1, 1, 1]
-          }
-        },
-        {
-          "shape" : "Cube",
-          "name" : "white",
+          "name" : "Long Cube",
           "material" : "matteWhite",
           "transform" : {
-            "translate" : [0, 2, 4],
-            "rotate" : [5, 33, 169],
-            "scale" : [1, 1, 1]
+            "translate" : [2, 0, 3.5],
+            "rotate" : [0,27.5,0],
+            "scale" : [3, 6, 3]
+          }
+        },
+        {
+          "shape" : "Cube",
+          "name" : "short Cube",
+          "material" : "matteWhite",
+          "transform" : {
+            "translate" : [-2, -1, 1.15],
+            "rotate" : [0,-17.5,0],
+            "scale" : [3, 3, 3]
           }
         },
         {
@@ -107,7 +87,7 @@
           "name" : "transmissive sphere",
           "material" : "frosted",
           "transform" : {
-            "translate" : [0, 1.25, 0],
+            "translate" : [0, 1, 0],
             "rotate" : [0,0,0],
             "scale" : [3, 3, 3]
           }
@@ -144,29 +124,23 @@
         },
         {
           "type" : "MatteMaterial",
-          "name" : "matteBlue",
-          "Kd" : [0.14, 0.065, 0.63],
-          "sigma": 0
-        },
-        {
-          "type" : "MatteMaterial",
           "name" : "matteGreen",
           "Kd" : [0.14, 0.45, 0.091],
           "sigma": 0
         },
         {
-          "type": "FrostedMaterial",
-          "name": "frosted",
-          "Kt": [1, 1, 1],
+          "type": "MirrorMaterial",
+          "name": "chromeMirror",
           "Kr": [1, 1, 1],
-          "eta": 1.55, 
           "roughness": 0.05
         },
         {
-          "type": "MatteMaterial",
-          "name": "texturedMaterial",
-          "Kd": [1, 1, 1],
-          "textureMap": "tex_nor_maps/whitebubble.jpg"
+          "type": "FrostedMaterial",
+          "name": "frosted",
+          "Kt": [0.9, 0.9, 1],
+          "Kr": [1, 1, 0.2],
+          "eta": 1.55,
+          "roughness": 0.05
         }
       ]
     }
